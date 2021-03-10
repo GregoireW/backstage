@@ -68,55 +68,53 @@ export const ErrorResponse = ({ error }: Props) => {
   const json = JSON.stringify(error, undefined, 2);
 
   return (
-    <>
-      <List dense>
+    <List dense>
+      <ListItem alignItems="flex-start">
+        <ListItemText
+          classes={{ secondary: classes.text }}
+          primary="Error"
+          secondary={errorString}
+        />
+        <CopyTextButton text={errorString} />
+      </ListItem>
+      <ListItem alignItems="flex-start">
+        <ListItemText
+          classes={{ secondary: classes.text }}
+          primary="Message"
+          secondary={message}
+        />
+        <CopyTextButton text={message} />
+      </ListItem>
+      {request && (
         <ListItem alignItems="flex-start">
           <ListItemText
             classes={{ secondary: classes.text }}
-            primary="Error"
-            secondary={errorString}
+            primary="Request"
+            secondary={request}
           />
-          <CopyTextButton text={errorString} />
+          <CopyTextButton text={request} />
         </ListItem>
+      )}
+      {stack && (
         <ListItem alignItems="flex-start">
           <ListItemText
             classes={{ secondary: classes.text }}
-            primary="Message"
-            secondary={message}
+            primary="Stack Trace"
+            secondary={stack}
           />
-          <CopyTextButton text={message} />
+          <CopyTextButton text={stack} />
         </ListItem>
-        {request ? (
-          <ListItem alignItems="flex-start">
-            <ListItemText
-              classes={{ secondary: classes.text }}
-              primary="Request"
-              secondary={request}
-            />
-            <CopyTextButton text={request} />
-          </ListItem>
-        ) : null}
-        {stack ? (
-          <ListItem alignItems="flex-start">
-            <ListItemText
-              classes={{ secondary: classes.text }}
-              primary="Stack Trace"
-              secondary={stack}
-            />
-            <CopyTextButton text={stack} />
-          </ListItem>
-        ) : null}
-        <Divider component="li" className={classes.divider} />
-        <ListItem alignItems="flex-start">
-          <ListItemText
-            classes={{ secondary: classes.text }}
-            primary="Full Error as JSON"
-            secondary={<CodeSnippet language="json" text={json} />}
-          />
-          <CopyTextButton text={json} />
-        </ListItem>
-      </List>
-    </>
+      )}
+      <Divider component="li" className={classes.divider} />
+      <ListItem alignItems="flex-start">
+        <ListItemText
+          classes={{ secondary: classes.text }}
+          primary="Full Error as JSON"
+          secondary={<CodeSnippet language="json" text={json} />}
+        />
+        <CopyTextButton text={json} />
+      </ListItem>
+    </List>
   );
 };
 
